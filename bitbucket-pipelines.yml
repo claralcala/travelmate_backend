@@ -1,0 +1,17 @@
+image: python:3.12.2-slim
+
+definitions:
+  steps:
+    - step: &build-test
+        name: Build and test
+        script:
+          - echo "Pipeline is working!"
+pipelines:
+  branches:
+    main:
+      - step: *build-test
+    development:
+      - step: *build-test
+  pull-requests:
+    '**':
+      - step: *build-test

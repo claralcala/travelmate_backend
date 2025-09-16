@@ -1,0 +1,34 @@
+version: '1.0'
+
+services:
+  api:
+    build: ./project
+    # Auto-reload enabled. Only one worker.
+    command: uvicorn app.app_main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    volumes:
+      # Mount the code into the container. This avoid to re-build the image after a code change.
+      - ./project:/usr/src/app
+    ports:
+      - 8001:8000
+    environment:
+      - PYTHONPATH=/usr/src/app/
+      - ENVIRONMENT=dev
+      - TESTING=0
+      - DATABASE_URL=postgres://travelmate:travelmate@db:5432/travelmate
+      - DATABASE_TEST_URL=postgres://postgres:postgres@db:5432/TRAVELMATEtest
+      - TOKEN_SECRET_KEY=049b66c4bb84929fb4faf688ab8fb5a96fdbace02ba5143e958f45d60db613c0
+      - SMTP_HOST=smtp.gmail.com
+      - SMTP_PORT=587
+      - SMTP_USER=travelmate.app24@gmail.com
+      - SMTP_PASSWORD=gapu yfdg nyyo yngn
+    depends_on:
+      - db
+  db:
+    build:
+      context: ./project/db
+      dockerfile: Dockerfile
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=travelmate
+      - POSTGRES_PASSWORD=travelmate
