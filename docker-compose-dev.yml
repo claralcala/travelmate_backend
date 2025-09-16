@@ -19,8 +19,8 @@ services:
       - TOKEN_SECRET_KEY=049b66c4bb84929fb4faf688ab8fb5a96fdbace02ba5143e958f45d60db613c0
       - SMTP_HOST=smtp.gmail.com
       - SMTP_PORT=587
-      - SMTP_USER=travelmate.app24@gmail.com
-      - SMTP_PASSWORD=gapu yfdg nyyo yngn
+      - SMTP_USER=
+      - SMTP_PASSWORD=
     depends_on:
       - db
   db:
